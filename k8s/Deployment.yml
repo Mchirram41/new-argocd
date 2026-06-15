@@ -1,0 +1,44 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: argo-cd-app
+
+spec:
+  replicas: 1
+
+  selector:
+    matchLabels:
+      app: argo-cd-app
+
+  template:
+    metadata:
+      labels:
+        app: argo-cd-app
+
+    spec:
+      containers:
+      - name: argo-cd-app
+        image: mnlove/argo-cd:${BUILD_NUMBER}
+
+        ports:
+        - containerPort: 8080
+
+
+##############
+
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: argo-cd-service
+
+spec:
+  selector:
+    app: argo-cd-app
+
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 8080
+
+  type: LoadBalancer
