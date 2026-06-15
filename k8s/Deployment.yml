@@ -18,7 +18,7 @@ spec:
     spec:
       containers:
       - name: argo-cd-app
-        image: mnlove/argo-cd:${BUILD_NUMBER}
+        image: mnlove/argo-cd:22
 
         ports:
         - containerPort: 8080
